@@ -1,8 +1,7 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 set -ouex pipefail
 
-echo "::group:: Copy Files"
 # Make Alternatives Directory
 mkdir -p /var/lib/alternatives
 
@@ -14,7 +13,7 @@ mkdir -p /var/lib/alternatives
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-dnf install -y tmux 
+# dnf install -y tmux 
 
 # Use a COPR Example:
 #
@@ -23,11 +22,11 @@ dnf install -y tmux
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
 
-/ctx/desktop-packages.sh
-
 rpm-ostree install \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+/ctx/desktop-packages.sh
 
 #### Example for enabling a System Unit File
 # systemctl enable podman.socket

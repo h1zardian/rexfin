@@ -47,3 +47,4 @@ INCLUDE_PACKAGES=(
 )
 
 dnf5 install --setopt=install_weak_deps=False -y "${INCLUDE_PACKAGES[@]}"
+dnf5 remove -y "${EXCLUDE_PACKAGES[@]}"

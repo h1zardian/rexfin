@@ -2,6 +2,10 @@
 
 set -ouex pipefail
 
+echo "::group:: Copy Files"
+# Make Alternatives Directory
+mkdir -p /var/lib/alternatives
+
 ### Install packages
 
 # Packages can be installed from any enabled yum repo on the image.
@@ -27,3 +31,15 @@ rpm-ostree install \
 
 #### Example for enabling a System Unit File
 # systemctl enable podman.socket
+
+
+dnf5 clean all
+
+mv /var/lib/alternatives /staged-alternatives
+rm -rf /tmp/* || true
+rm -rf /var/!(cache)
+rm -rf /var/cache/!(rpm-ostree)
+mkdir -p /var/lib && mv /staged-alternatives /var/lib/alternatives && \
+mkdir -p /var/tmp && \
+chmod -R 1777 /var/tmp
+ostree container commit

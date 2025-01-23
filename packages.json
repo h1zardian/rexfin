@@ -1,0 +1,14 @@
+{
+	"all": {
+		"include": {
+			"all": [
+				"adw-gtk3-theme"
+			]
+		},
+		"exclude": {
+			"all": [
+				"podman-docker"
+			]
+		}
+	}
+}

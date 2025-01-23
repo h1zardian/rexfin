@@ -10,10 +10,11 @@ COPY / /
 
 FROM ghcr.io/ublue-os/bluefin-dx:stable-daily
 
-COPY build.sh /tmp/build.sh
+# RUN mkdir -p /var/lib/alternatives && \
+#     /tmp/build.sh && \
+#     ostree container commit && \
+#     bootc container lint
 
-RUN mkdir -p /var/lib/alternatives && \
-    /tmp/build.sh && \
-    ostree container commit && \
-    bootc container lint
-    
+RUN --mount=type=cache,dst=/var/cache/rpm-ostree \
+    --mount=type=bind,from=ctx,source=/,target=/ctx \
+    /ctx/build.sh
